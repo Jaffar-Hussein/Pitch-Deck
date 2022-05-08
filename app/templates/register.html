@@ -1,0 +1,8 @@
+from 
+{% extends 'layout.html' %}
+{% block body %}
+    {% from 'bootstrap5/form.html' import render_form %}
+    <div class="continer nav-page">
+        {{render_form(form)}}
+    </div>
+{% endblock %}

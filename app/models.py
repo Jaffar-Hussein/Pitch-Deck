@@ -1,6 +1,11 @@
 from datetime import datetime
-from . import db
 
+from . import db,login_manager
+
+# The login in the init method
+@login_manager.user_loader
+def login_manager(user_id):
+    return User.query.get(int(user_id))
 
 class User(db.Model):
     """

@@ -1,6 +1,11 @@
 from datetime import datetime
-from . import db
 
+from . import db,login_manager
+
+# The login in the init method
+@login_manager.user_loader
+def login_manager(user_id):
+    return User.query.get(int(user_id))
 
 class User(db.Model):
     """
@@ -25,7 +30,7 @@ class Pitch(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String,nullable=False)
     content = db.Column(db.String,nullable=False)
-    date_created = db.Column(db.Date,nullable=False,default=datetime.utc.now)
+    date_created = db.Column(db.Date,nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
     def __init__(self):

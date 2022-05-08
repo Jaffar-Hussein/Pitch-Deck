@@ -16,7 +16,7 @@ class User(db.Model):
     email = db.Column(db.String,nullable=False,unique=True)
     password = db.Column(db.String,nullable=False)
     profile = db.Column(db.String,nullable=False,default='default.jpeg')
-    pitches = db.relationship('Post', backref='author', lazy=True)
+    pitches = db.relationship('Pitch', backref='author', lazy=True)
     
     def __init__(self):
         return f"id: {self.id} , username: {self.username} "

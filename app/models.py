@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from flask_login import UserMixin
 from . import db,login_manager
 
 # The login in the init method
@@ -7,7 +7,7 @@ from . import db,login_manager
 def login_manager(user_id):
     return User.query.get(int(user_id))
 
-class User(db.Model):
+class User(db.Model,UserMixin):
     """
     The table for the User in the database.
     """
@@ -18,7 +18,7 @@ class User(db.Model):
     profile = db.Column(db.String,nullable=False,default='default.jpeg')
     pitches = db.relationship('Pitch', backref='author', lazy=True)
     
-    def __init__(self):
+    def __repr__(self):
         return f"id: {self.id} , username: {self.username} "
 
         
@@ -33,5 +33,5 @@ class Pitch(db.Model):
     date_created = db.Column(db.Date,nullable=False,default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     
-    def __init__(self):
+    def __repr__(self):
         return f"id: {self.id} , title: {self.title}"

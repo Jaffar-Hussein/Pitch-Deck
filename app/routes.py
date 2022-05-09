@@ -1,8 +1,8 @@
 from flask import render_template, url_for, flash, redirect, request
 from . import app, db, bcrypt
-from app.models import User
+from app.models import User,Pitch
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import Register, Login
+from app.forms import Register, Login,PitchForm
 db.create_all()
 
 
@@ -58,7 +58,14 @@ def logout():
 def account():
     return render_template('account.html')
 
-@app.route('/create')
+@app.route('/create',methods=['POST', 'GET'])
 @login_required
 def create():
-    return render_template('create.html')
+    form=PitchForm()
+    if form.validate_on_submit():
+        pitch = Pitch(title=form.title.data,content=form.content.data,user_id=current_user.id)
+        db.session.add(pitch)
+        db.session.commit()
+        flash('Your pitch was successfully added')
+        return redirect(url_for('home'))
+    return render_template('create.html',form=form,title='New Pitch')

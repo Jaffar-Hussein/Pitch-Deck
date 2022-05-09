@@ -37,6 +37,7 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
+            flash(f'Welcome {user.username.title()} !! ', 'success')
             # args is a dict
             # get returns none if the next key does not exist
             next_page = request.args.get('next')
@@ -51,3 +52,13 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route('/account')
+@login_required
+def account():
+    return render_template('account.html')
+
+@app.route('/create')
+@login_required
+def create():
+    return render_template('create.html')

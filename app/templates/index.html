@@ -1,1 +1,55 @@
 {% extends 'layout.html' %}
+{% block body %}
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-6  mx-auto mt-auto mb-auto px-5 ">
+                <p class="h3">
+                    Create a pitch today
+                </p>
+                <p class="lead">
+                    Create a pitch today for any category you want and vote on pitches already made...Who knows you might find
+                    something intresting browse and copy what you might like 
+                </p>
+                <a href="{{url_for('create')}}" class="btn btn-lg btn-outline">CREATE</a>
+            </div>
+            <div class="col-md-6">
+                <img src="{{url_for('static',filename='/assets/img.svg')}}" class="img-responsive f-img m-5" alt="">
+            </div>
+        </div>
+    </div>
+    <!-- To be removed -->
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 g-6">
+            <div class="col">
+              <div class="card">
+                  <div class="row h-25">
+                      <div class="col-md-8"></div>
+                    <div class="col-md-2">
+                        <img src="{{url_for('static',filename='/profiles/anon.png')}}" height=10 class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+                    </div>
+                    <div class="col-md-2 mx-auto mt-auto mb-auto">
+                        <p>Username</p>
+                    </div>
+                  </div>
+                <div class="card-body">
+                  <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
+                  <p class="card-text lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, hic.
+                  In eveniet numquam, aperiam voluptatum soluta amet quod quisquam blanditiis?
+                  Ipsum id unde nemo fuga dolore non fugiat iste delectus.</p>
+                  <div class="">
+                    <img src="" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card">
+                <img src="..." class="card-img-top" alt="...">
+                <div class="card-body">
+                  <h5 class="card-title">Card title</h5>
+                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                </div>
+              </div>
+            </div>
+    </div>
+{% endblock %}

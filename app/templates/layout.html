@@ -11,12 +11,14 @@
     <title>{{title}}</title>
 </head>
 <body>
-    <div class="container">
+    <div class="container-fluid">
         <!-- Nav Bar------------------------------------------------ -->
         <div class="container-fluid">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav class="navbar navbar-expand-lg navbar-light bg-transparent">
               <div class="container-fluid">
-                <a class="navbar-brand" href="{{url_for('home')}}">Pitch Deck</a>
+                <a class="navbar-brand"  href="{{url_for('home')}}">
+                  <img src= "{{url_for('static',filename='/assets/logo.svg')}}" alt="logo" width="75" height="45" >
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                   aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -41,6 +43,8 @@
 
                       {% if current_user.is_authenticated %}
                       <li class="nav-item">
+                        <a class="nav-link active " href="{{url_for('home')}}">Create</a>
+                      <li class="nav-item">
                       <a class="nav-link active " href="{{url_for('home')}}">Account</a>
                       <li class="nav-item">
                       <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
@@ -63,7 +67,15 @@
               </div>
             </nav>
         </div>
-     
+        {% with messages = get_flashed_messages(with_categories = true) %} 
+        {% if messages %}
+        {%for category,message in messages %}
+        <div class="alert alert-{{ category }} alert-dismissible fade show">{{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {%endfor%}
+        {% endif %}
+        {% endwith %}
         {% block body %}
             
         {% endblock %}

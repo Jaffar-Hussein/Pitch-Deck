@@ -10,3 +10,31 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+.f-img{
+    height: 50vh
+}
+.alert{
+    background-color: #E2B26E!important;
+    color: #fff!important;
+    border: none!important;
+}
+.btn{
+    background-color: #064663 !important;
+    box-shadow: none;
+    background-color: transparent;
+    height: 3rem;
+    width: 15rem;
+    box-shadow: none;
+    outline: none;
+    color: #fff!important;
+}
+.form-control:focus,.form-check-input:focus {
+    box-shadow: none;
+    outline: none;
+  }
+
+
+
+.btn:hover:active:focus {
+    box-shadow: none;
+}

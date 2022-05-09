@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String, nullable=False, unique=True)
     email = db.Column(db.String, nullable=False, unique=True)
     password = db.Column(db.String, nullable=False)
-    profile = db.Column(db.String, nullable=False, default='default.jpeg')
+    profile = db.Column(db.String, nullable=False, default='anon.png')
     pitches = db.relationship('Pitch', backref='author', lazy=True)
 
     def __repr__(self):

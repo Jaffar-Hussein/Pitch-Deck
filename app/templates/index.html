@@ -19,49 +19,46 @@
     </div>
     <!-- To be removed -->
     <div class="container">
-        <div class="row row-cols-1 row-cols-md-2 g-6">
-            <div class="col">
-              <div class="card">
-                  <div class="row h-25">
-                      <div class="col-md-8"></div>
-                    <div class="col-md-2">
-                        <img src="{{url_for('static',filename='/profiles/anon.png')}}" height=10 class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
-                    </div>
-                    <div class="col-md-2 mx-auto mt-auto mb-auto">
-                        <p>Username</p>
-                    </div>
-                  </div>
-                <div class="card-body">
-                  <h5 class="card-title">Lorem ipsum dolor sit amet.</h5>
-                  <p class="card-text lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, hic.
-                  In eveniet numquam, aperiam voluptatum soluta amet quod quisquam blanditiis?
-                  Ipsum id unde nemo fuga dolore non fugiat iste delectus.</p>
-                  <div class="d-flex justify-content-around">
-                    <img src="{{url_for('static',filename='/assets/like.svg')}}" alt="">
-                    <img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt="">
-                    
-                    <a  data-bs-toggle="collapse" href="#comments" class="lead text-decoration-none">
-                      <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
-                    </a>
-                     
-                  </div>
-                  <div class="collapse" id="comments">
-                    <div class="card comments">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, eveniet.
-                      Sapiente totam rem, non quibusdam quo tenetur! Excepturi, doloribus distinctio.
-                    </div>
-                  </div>
+      
+      <div class="row row-cols-1 row-cols-md-2 g-4">
+    {% for pitch in pitches %}
+
+        <div class="col ">
+          <div class="card">
+              <div class="row  p-2">
+                  <div class="col-md-8"></div>
+                <div class="col-md-2">
+                    <img src="{{url_for('static', filename='/profiles/'+pitch.author.profile)}}" class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+                </div>
+                <div class="col-md-2 mx-auto mt-auto mb-auto text-muted">
+                    <small>{{pitch.author.username}}</small>
+                    <br>
+                    <small>{{pitch.date_created}}</small>
+                </div>
+              </div>
+            <div class="card-body">
+              <h5 class="card-title">{{pitch.title}}</h5>
+              <p class="card-text lead">{{pitch.content}}</p>
+              <div class="d-flex justify-content-around">
+                <img src="{{url_for('static',filename='/assets/like.svg')}}" alt="">
+                <img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt="">
+                
+                <a  data-bs-toggle="collapse" href="#comments{{pitch.id}}" class="lead text-decoration-none">
+                  <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
+                </a>
+                 
+              </div>
+              <div class="collapse" id="comments{{pitch.id}}">
+                <div class="card comments">
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, eveniet.
+                  Sapiente totam rem, non quibusdam quo tenetur! Excepturi, doloribus distinctio.
                 </div>
               </div>
             </div>
-            <div class="col">
-              <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                </div>
-              </div>
-            </div>
-    </div>
+          </div>
+        </div>
+      {% endfor %}
+       
+</div>
+     
 {% endblock %}

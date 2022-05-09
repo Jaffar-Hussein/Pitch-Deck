@@ -9,6 +9,7 @@ db.create_all()
 @app.route('/')
 def home():
     pitches = Pitch.query.all()
+    
     return render_template('index.html',pitches=pitches)
 
 

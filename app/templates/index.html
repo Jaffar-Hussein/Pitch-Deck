@@ -36,8 +36,20 @@
                   <p class="card-text lead">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, hic.
                   In eveniet numquam, aperiam voluptatum soluta amet quod quisquam blanditiis?
                   Ipsum id unde nemo fuga dolore non fugiat iste delectus.</p>
-                  <div class="">
-                    <img src="" alt="">
+                  <div class="d-flex justify-content-around">
+                    <img src="{{url_for('static',filename='/assets/like.svg')}}" alt="">
+                    <img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt="">
+                    
+                    <a  data-bs-toggle="collapse" href="#comments" class="lead text-decoration-none">
+                      <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 
+                    </a>
+                     
+                  </div>
+                  <div class="collapse" id="comments">
+                    <div class="card comments">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Possimus, eveniet.
+                      Sapiente totam rem, non quibusdam quo tenetur! Excepturi, doloribus distinctio.
+                    </div>
                   </div>
                 </div>
               </div>

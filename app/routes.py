@@ -8,7 +8,8 @@ db.create_all()
 
 @app.route('/')
 def home():
-    return render_template('index.html')
+    pitches = Pitch.query.all()
+    return render_template('index.html',pitches=pitches)
 
 
 @app.route('/register', methods=['POST', 'GET'])

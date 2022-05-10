@@ -182,6 +182,14 @@ def categories(category):
     pitches = Pitch.query.filter_by(category=category)
     return render_template('categories.html', pitches=pitches)
 
-@app.route('/post/edit/<postid>')
+@app.route('/post/edit/<pitchid>')
 def post_edit(postid):
-    return render_template('post_edit.html', postid=postid)
+    
+    return render_template('post_editing.html')
+
+@app.route('/post/delete/<pitchid>')
+def post_delete(pitchid):
+    pitch = Pitch.query.filter_by(id=pitchid).first()
+    db.session.delete(pitch)
+    db.session.commit()
+    return redirect(url_for('home'))

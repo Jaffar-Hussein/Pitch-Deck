@@ -2,15 +2,31 @@ from flask import render_template, url_for, flash, redirect, request
 from . import app, db, bcrypt
 from app.models import User, Pitch
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import Register, Login, PitchForm
+from app.forms import Register, Login, PitchForm, CommentsForm
 db.create_all()
+
+
+def comments_cutter(string_comments):
+    """Takes in a string cuts it and returns a list of comments
+    """
+    return string_comments.split(';')
 
 
 @app.route('/')
 def home():
+    # All pitches here
     pitches = Pitch.query.all()
 
+    # comments_list = comments_cutter(pitches.comments)
     return render_template('index.html', pitches=pitches)
+
+
+@app.route('/comments/<id>',methods=['POST', 'GET'])
+def comments(id):
+    form = CommentsForm()
+    pitch = Pitch.query.filter_by(id=id).first()
+    form.content.data = "Your comment here"
+    return render_template('comments.html', form=form , pitch=pitch)
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -76,7 +92,7 @@ def create():
     return render_template('create.html', form=form, title='New Pitch')
 
 
-@app.route('/post/like/<int:pitchid>', methods=[ 'GET'])
+@app.route('/post/like/<int:pitchid>', methods=['GET'])
 @login_required
 def likes(pitchid):
     """
@@ -112,6 +128,3 @@ def dislikes(pitchid):
     pitch.likes -= 1
     db.session.commit()
     return redirect(url_for('home'))
-
-
-

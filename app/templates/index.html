@@ -49,11 +49,20 @@
                  
               </div>
               <div class="collapse" id="comments{{pitch.id}}">
-                <!-- Comments display  -->
-                <div class="card comments">
-             
                 
+            {% if pitch.comments %}
+            <div class=" comments my-3">
+              <p>Comments</p>
+              {% for comment in  pitch.comments.split('~') %}
+                <div class="card m-1">
+                  <p class="lead">
+                    {{comment}}
+                  </p>
                 </div>
+              {% endfor %}
+            
+            </div>
+            {% endif %}
           <a href="{{url_for('comments',id=pitch.id)}}">ADD</a>
                  
                 </div>

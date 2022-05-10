@@ -93,7 +93,7 @@ def save_picture(form_picture):
     i.save(picture_path)
     return picture_fn
 
-@app.route('/account')
+@app.route('/account',methods=['POST', 'GET'])
 @login_required
 def account():
     """

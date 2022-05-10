@@ -1,0 +1,16 @@
+{% extends 'index.html' %}
+{% block content %}
+{% from 'bootstrap5/form.html' import render_form %}
+<div class="container">
+    <div class="container-fluid row p-5">
+        <div class="col-md-4">
+            <img src="{{image}}"  class="img-thumbnail img-fluid border border-white" alt="Profile picture" >
+        </div>
+        <div class="col-md-8 d-flex align-items-center justify-content-start lead">
+            Username--: {{ current_user.username.title() }}
+            <br>
+            Email-------: {{ current_user.email }}
+        </div>
+    </div>
+</div>
+{%endblock%}

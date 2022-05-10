@@ -33,7 +33,9 @@
     outline: none;
   }
 
-
+.pitches{
+    width:40vw;
+}
 
 .btn:hover:active:focus {
     box-shadow: none;

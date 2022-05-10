@@ -84,7 +84,7 @@ def save_picture(form_picture):
     _,f_ext=os.path.splitext(form_picture.filename)
     picture_fn=random_hex +f_ext
 
-    picture_path=os.path.join(app.root_path,'static/assets',picture_fn)
+    picture_path=os.path.join(app.root_path,'static/profiles',picture_fn)
 
     output_size=(125,125)
     i=Image.open(form_picture)
@@ -102,7 +102,7 @@ def account():
     if form.validate_on_submit():
         if form.picture.data:
             picture=save_picture(form.picture.data)
-            current_user.image_file=picture
+            current_user.profile=picture
              
         current_user.username=form.username.data
         current_user.email=form.email.data
@@ -115,7 +115,7 @@ def account():
         form.username.data=current_user.username
         form.email.data=current_user.email
 
-    image_file= url_for('static',filename='assets/'+current_user.profile)
+    image_file= url_for('static',filename='profiles/'+current_user.profile)
     return render_template('account.html', title='Account',image_file=image_file,form=form )
 
 

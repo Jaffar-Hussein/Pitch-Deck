@@ -25,9 +25,16 @@ def home():
 
 
 @app.route('/comments/<id>',methods=['POST', 'GET'])
+@login_required
 def comments(id):
     form = CommentsForm()
     pitch = Pitch.query.filter_by(id=id).first()
+    if form.validate_on_submit():
+        pitch.comments+=form.content.data + '~'
+        db.session.commit()
+        flash('Your comment was added successfully')
+        
+        return redirect(url_for('home'))
     form.content.data = "Your comment here"
     return render_template('comments.html', form=form , pitch=pitch)
 
@@ -125,7 +132,7 @@ def create():
     form = PitchForm()
     if form.validate_on_submit():
         pitch = Pitch(title=form.title.data,
-                      content=form.content.data, user_id=current_user.id)
+                      content=form.content.data, user_id=current_user.id,category=form.category.data)
         db.session.add(pitch)
         db.session.commit()
         flash('Your pitch was successfully added')
@@ -169,3 +176,12 @@ def dislikes(pitchid):
     pitch.likes -= 1
     db.session.commit()
     return redirect(url_for('home'))
+
+@app.route('/categories/<category>')
+def categories(category):
+    pitches = Pitch.query.filter_by(category=category)
+    return render_template('categories.html', pitches=pitches)
+
+@app.route('/post/edit/<postid>')
+def post_edit(postid):
+    return render_template('post_edit.html', postid=postid)

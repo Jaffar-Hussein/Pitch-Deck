@@ -1,24 +1,6 @@
 {% extends 'layout.html' %}
 {% block body %}
-    <div class="container-fluid mt-3">
-        <div class="row">
-            <div class="col-md-6  mx-auto mt-auto mb-auto px-5 ">
-                <p class="h3">
-                    Create a pitch today
-                </p>
-                <p class="lead">
-                    Create a pitch today for any category you want and vote on pitches already made...Who knows you might find
-                    something intresting browse and copy what you might like 
-                </p>
-                <a href="{{url_for('create')}}" class="btn btn-lg btn-outline">CREATE</a>
-            </div>
-            <div class="col-md-6">
-                <img src="{{url_for('static',filename='/assets/img.svg')}}" class="img-responsive f-img m-5" alt="">
-            </div>
-        </div>
-    </div>
-    <!-- To be removed -->
-    <div class="container-fluid d-flex flex-wrap flex-row justify-content-center">
+<div class="container-fluid d-flex flex-wrap flex-row justify-content-center">
     {% for pitch in pitches %}
         <div class="pitches card my-2 mx-4">
           
@@ -79,5 +61,4 @@
       {% endfor %}
        
 </div>
-     
 {% endblock %}

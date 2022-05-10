@@ -115,7 +115,7 @@ def account():
         current_user.email=form.email.data
 
         db.session.commit()
-        flash('Yout Account Has been updated!','success')
+        flash('Your Account Has been updated!','success')
         return redirect(url_for('account'))
     elif request.method == 'GET':
 
@@ -182,10 +182,29 @@ def categories(category):
     pitches = Pitch.query.filter_by(category=category)
     return render_template('categories.html', pitches=pitches)
 
-@app.route('/post/edit/<pitchid>')
+@app.route('/post/edit/<postid>',methods=['POST', 'GET'])
 def post_edit(postid):
+    form = PitchForm()
+
+    edites= Pitch.query.filter_by(id=postid).first()
     
-    return render_template('post_editing.html')
+    
+
+    if form.validate_on_submit():
+        edites.title = form.title.data
+        edites.content=form.content.data
+        edites.category=form.category.data
+        
+        db.session.add(edites)
+        db.session.commit()
+        flash('Your Pitch Has been updated!','success')
+        return redirect(url_for("home"))
+    else:
+        form.title.data=edites.title
+        form.content.data=edites.content
+        form.category.data=edites.category
+        
+    return render_template('post_edit.html',form=form)
 
 @app.route('/post/delete/<pitchid>')
 def post_delete(pitchid):
@@ -193,3 +212,4 @@ def post_delete(pitchid):
     db.session.delete(pitch)
     db.session.commit()
     return redirect(url_for('home'))
+

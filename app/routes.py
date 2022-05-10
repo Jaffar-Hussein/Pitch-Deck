@@ -1,16 +1,16 @@
 from flask import render_template, url_for, flash, redirect, request
 from . import app, db, bcrypt
-from app.models import User,Pitch
+from app.models import User, Pitch
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import Register, Login,PitchForm
+from app.forms import Register, Login, PitchForm
 db.create_all()
 
 
 @app.route('/')
 def home():
     pitches = Pitch.query.all()
-    
-    return render_template('index.html',pitches=pitches)
+
+    return render_template('index.html', pitches=pitches)
 
 
 @app.route('/register', methods=['POST', 'GET'])
@@ -55,19 +55,63 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+
 @app.route('/account')
 @login_required
 def account():
     return render_template('account.html')
 
-@app.route('/create',methods=['POST', 'GET'])
+
+@app.route('/create', methods=['POST', 'GET'])
 @login_required
 def create():
-    form=PitchForm()
+    form = PitchForm()
     if form.validate_on_submit():
-        pitch = Pitch(title=form.title.data,content=form.content.data,user_id=current_user.id)
+        pitch = Pitch(title=form.title.data,
+                      content=form.content.data, user_id=current_user.id)
         db.session.add(pitch)
         db.session.commit()
         flash('Your pitch was successfully added')
         return redirect(url_for('home'))
-    return render_template('create.html',form=form,title='New Pitch')
+    return render_template('create.html', form=form, title='New Pitch')
+
+
+@app.route('/post/like/<int:pitchid>', methods=[ 'GET'])
+@login_required
+def likes(pitchid):
+    """
+    Adds a like when click of a button
+
+    Returns:
+        _type_: _description_
+    """
+
+    pitch = Pitch.query.filter_by(id=pitchid).first()
+
+    # update = pitch.likes + 1
+    pitch.likes += 1
+    pitch.dislikes -= 1
+    db.session.commit()
+    # return str(pitch.likes)
+    return redirect(url_for('home'))
+
+
+@app.route('/post/dislikes/<int:pitchid>', methods=['POST', 'GET'])
+@login_required
+def dislikes(pitchid):
+    """
+    Adds a dislikes when click of a button
+
+    Returns:
+        _type_: _description_
+    """
+
+    pitch = Pitch.query.filter_by(id=pitchid).first()
+
+    pitch.dislikes += 1
+    pitch.likes -= 1
+    db.session.commit()
+    return redirect(url_for('home'))
+
+
+

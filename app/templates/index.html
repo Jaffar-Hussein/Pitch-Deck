@@ -40,8 +40,8 @@
               <h5 class="card-title">{{pitch.title}}</h5>
               <p class="card-text lead">{{pitch.content}}</p>
               <div class="d-flex justify-content-around">
-                <img src="{{url_for('static',filename='/assets/like.svg')}}" alt="">
-                <img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt="">
+                <a href="{{url_for('likes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/like.svg')}}" alt=""></a>{{pitch.likes}}
+                <a href="{{url_for('dislikes',pitchid=pitch.id)}}"><img src="{{url_for('static',filename='/assets/unlike.svg')}}"  alt=""></a>{{pitch.dislikes}}
                 
                 <a  data-bs-toggle="collapse" href="#comments{{pitch.id}}" class="lead text-decoration-none">
                   <img src="{{url_for('static',filename='/assets/comment.svg')}}" height="30" alt=""> 

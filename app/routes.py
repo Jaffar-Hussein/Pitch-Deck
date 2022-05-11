@@ -11,7 +11,7 @@ import math
 from PIL import Image
 from app.models import User, Pitch, Otp
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import Register, Login, PitchForm, CommentsForm,UpdateAccountForm,VerifyOtp,ForgotPassword
+from app.forms import Register, Login, PitchForm,ResetPassword, CommentsForm,UpdateAccountForm,VerifyOtp,ForgotPassword
 db.create_all()
 
 
@@ -254,7 +254,7 @@ def verify_otp(userid):
             u=db.session.get(Otp,1)
             db.session.delete(u)
             db.session.commit()
-            return redirect(url_for('home'))
+            return redirect(url_for('reset',userid=user.id))
 
     return render_template('otp_verification.html',form=form)
 
@@ -267,3 +267,18 @@ def generate_token(length):
         index=math.floor(random.random()*10)
         token+=str(digits[index])
     return token
+
+@app.route('/reset_password/<userid>',methods=['POST','GET'])
+def reset(userid):
+    form=ResetPassword()
+    user=User.query.filter_by(id=userid).first()
+
+    if form.validate_on_submit():
+        if user.password != form.password.data:
+            user.password = form.password.data
+            db.session.add(user)
+            db.session.commit()
+            return redirect(url_for('home'))
+        else:
+            flash('Old and new password cannot be the same')
+    return render_template('reset_password.html',form=form)

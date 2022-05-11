@@ -39,6 +39,9 @@
 .pitches{
     width:40vw;
     height: max-content;
+    background: #FFFFFF;
+    box-shadow: 0 .5rem 1rem rgba(6, 70, 99, 0.18)!important;
+    border: none !important;
 }
 
 .btn:hover:active:focus {

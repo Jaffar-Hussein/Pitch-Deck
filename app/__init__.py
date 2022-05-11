@@ -13,8 +13,9 @@ app.config['SECRET_KEY'] = '37183a998ba83a7b481bd3f6e0f2b29'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = ''
-app.config['MAIL_PASSWORD'] = ''
+app.config['MAIL_USERNAME'] = 'apollolibrary99@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Library@99'
+
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 

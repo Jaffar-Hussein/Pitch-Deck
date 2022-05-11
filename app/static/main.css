@@ -38,6 +38,7 @@
 
 .pitches{
     width:40vw;
+    height: max-content;
 }
 
 .btn:hover:active:focus {

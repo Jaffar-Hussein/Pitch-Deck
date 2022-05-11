@@ -1,12 +1,17 @@
+import math
 from flask import render_template, url_for, flash, redirect, request
 from . import app, db, bcrypt,mail
 from flask_mail import Mail, Message
 import secrets
 import os
+from sqlalchemy import desc
+from random import randint
+import random
+import math
 from PIL import Image
-from app.models import User, Pitch
+from app.models import User, Pitch, Otp
 from flask_login import login_user, current_user, logout_user, login_required
-from app.forms import Register, Login, PitchForm, CommentsForm,UpdateAccountForm
+from app.forms import Register, Login, PitchForm, CommentsForm,UpdateAccountForm,VerifyOtp,ForgotPassword
 db.create_all()
 
 
@@ -123,9 +128,9 @@ def account():
         form.username.data=current_user.username
         form.email.data=current_user.email
     
-    msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=['abduba13@gmail.com'])
-    msg.body = "Rich JAFFARRRRRRRR"
-    mail.send(msg)
+    # msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=['abduba13@gmail.com'])
+    # msg.body = "Rich JAFFARRRRRRRR"
+    # mail.send(msg)
     image_file= url_for('static',filename='profiles/'+current_user.profile)
     return render_template('account.html', title='Account',image_file=image_file,form=form )
 
@@ -186,6 +191,7 @@ def categories(category):
     pitches = Pitch.query.filter_by(category=category)
     return render_template('categories.html', pitches=pitches)
 
+@login_required
 @app.route('/post/edit/<postid>',methods=['POST', 'GET'])
 def post_edit(postid):
     form = PitchForm()
@@ -215,3 +221,49 @@ def post_delete(pitchid):
     db.session.commit()
     return redirect(url_for('home'))
 
+@app.route('/forgot/password',methods=['POST','GET'])
+def forgot_password():
+    form=ForgotPassword()
+    if form.validate_on_submit():
+        user=User.query.filter_by(email=form.email.data).first()
+        token=generate_token(6)
+        otp=Otp(otp=token,user_id=user.id)
+        db.session.add(otp)
+        db.session.commit()
+        if user:    
+            msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=[user.email])
+            msg.body = token
+            mail.send(msg)
+            flash('We have sent you an email with instructions to reset your password')
+            return redirect(url_for('verify_otp',userid=user.id))
+
+    return render_template('forgot_password.html',form=form)
+
+@app.route('/otp-verify/<userid>',methods=['POST', 'GET'])
+def verify_otp(userid):
+    form = VerifyOtp()
+    user=User.query.filter_by(id=userid).first()
+    token=Otp.query.filter_by(user_id=userid).first()
+    
+    if form.validate_on_submit():
+
+        if form.otp.data != token.otp:
+            flash('InCorrect otp')
+        else:
+            flash('Correct otp')
+            u=db.session.get(Otp,1)
+            db.session.delete(u)
+            db.session.commit()
+            return redirect(url_for('home'))
+
+    return render_template('otp_verification.html',form=form)
+
+
+def generate_token(length):
+    digits = [i for i in range(0, 10)]
+
+    token=""
+    for i in range(length):
+        index=math.floor(random.random()*10)
+        token+=str(digits[index])
+    return token

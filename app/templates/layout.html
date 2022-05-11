@@ -45,13 +45,20 @@
 
                       {% if current_user.is_authenticated %}
                       <li class="nav-item">
-                        <a class="nav-link active " href="{{url_for('create')}}">Create</a>
+                        <a class="nav-link active me-5" href="{{url_for('create')}}">Create</a>
                         </li>
                       <!-- <li class="nav-item"> -->
                       <!-- <a class="nav-link active " href="{{url_for('account')}}">Account</a>
                       <li class="nav-item">
                       <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
                     </li> -->
+                    <li>
+                      
+                      <img src="{{url_for('static', filename='/profiles/'+current_user.profile)}}" class="img-fluid img-thumbnail ms-5 rounded round" alt="UserImage">
+                    </li>
+                    <li>
+
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
@@ -68,7 +75,7 @@
                         </li>
                       </ul>
                     </div> 
-              
+                  </li>
                       {%else%}
                       {%if request.url_rule.endpoint != 'register' %}
                       <li class="nav-item">

@@ -89,3 +89,11 @@ class UpdateAccountForm(FlaskForm):
             if user:
                 raise ValidationError("That email is taken. Please choose a different one")
 
+class ForgotPassword(FlaskForm):
+    
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Reset')
+
+class VerifyOtp(FlaskForm):
+    otp=StringField('Otp', validators=[DataRequired()])
+    submit = SubmitField('Verify')

@@ -97,3 +97,9 @@ class ForgotPassword(FlaskForm):
 class VerifyOtp(FlaskForm):
     otp=StringField('Otp', validators=[DataRequired()])
     submit = SubmitField('Verify')
+
+class ResetPassword(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[
+        DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset')

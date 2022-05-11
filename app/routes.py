@@ -1,5 +1,6 @@
 from flask import render_template, url_for, flash, redirect, request
-from . import app, db, bcrypt
+from . import app, db, bcrypt,mail
+from flask_mail import Mail, Message
 import secrets
 import os
 from PIL import Image
@@ -121,7 +122,10 @@ def account():
 
         form.username.data=current_user.username
         form.email.data=current_user.email
-
+    
+    msg=Message("Hello",sender="apollolibrary99@gmail.com",recipients=['abduba13@gmail.com'])
+    msg.body = "Rich JAFFARRRRRRRR"
+    mail.send(msg)
     image_file= url_for('static',filename='profiles/'+current_user.profile)
     return render_template('account.html', title='Account',image_file=image_file,form=form )
 
@@ -188,8 +192,6 @@ def post_edit(postid):
 
     edites= Pitch.query.filter_by(id=postid).first()
     
-    
-
     if form.validate_on_submit():
         edites.title = form.title.data
         edites.content=form.content.data

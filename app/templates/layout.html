@@ -52,7 +52,7 @@
                       <li class="nav-item">
                       <a class="nav-link active" href="{{url_for('logout')}}">Logout</a>
                     </li> -->
-                    <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
@@ -67,26 +67,8 @@
                           </ul>
                         </li>
                       </ul>
-                    </div> -->
-                    <div class="navbar-inner">
-                      <div class="container" style="width: auto;">
-               
-                        <ul class="nav" role="navigation">
-                          <li class="dropdown">
-                            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                              <li><a tabindex="-1" href="#">Action</a></li>
-                              <li><a tabindex="-1" href="#">Another action</a></li>
-                              <li><a tabindex="-1" href="#">Something else here</a></li>
-                              <li class="divider"></li>
-                              <li><a tabindex="-1" href="#">Separated link</a></li>
-                            </ul>
-                          </li>
-               
-                        </ul>
-               
-                      </div>
-                    </div>
+                    </div> 
+              
                       {%else%}
                       {%if request.url_rule.endpoint != 'register' %}
                       <li class="nav-item">

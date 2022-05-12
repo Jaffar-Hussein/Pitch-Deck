@@ -6,6 +6,7 @@ from app import  db, bcrypt,mail
 from flask_mail import  Message
 import random
 import math
+from app.models import Pitch
 from app.users.utils import save_picture
 
 from app.models import User, Otp
@@ -61,6 +62,8 @@ def logout():
 def account():
     """
     """
+    
+    pitch= Pitch.query.filter_by(user_id=current_user.id)
     form=UpdateAccountForm()
     if form.validate_on_submit():
         if form.picture.data:
@@ -82,7 +85,7 @@ def account():
     # msg.body = "Rich JAFFARRRRRRRR"
     # mail.send(msg)
     image_file= url_for('static',filename='profiles/'+current_user.profile)
-    return render_template('account.html', title='Account',image_file=image_file,form=form )
+    return render_template('account.html', title='Account',image_file=image_file,form=form,pitch=pitch )
 
 @users.route('/forgot/password',methods=['POST','GET'])
 def forgot_password():

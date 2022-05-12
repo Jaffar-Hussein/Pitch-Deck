@@ -55,7 +55,7 @@ def likes(pitchid):
 
     # update = pitch.likes + 1
     pitch.likes += 1
-    pitch.dislikes -= 1
+    # pitch.dislikes -= 1
     db.session.commit()
     # return str(pitch.likes)
     return redirect(url_for('main.home'))
@@ -74,7 +74,7 @@ def dislikes(pitchid):
     pitch = Pitch.query.filter_by(id=pitchid).first()
 
     pitch.dislikes += 1
-    pitch.likes -= 1
+    # pitch.likes -= 1
     db.session.commit()
     return redirect(url_for('main.home'))
 

@@ -1,7 +1,6 @@
 from datetime import datetime
 from flask_login import UserMixin
 from . import db, login_manager
-
 # The login in the init method
 
 

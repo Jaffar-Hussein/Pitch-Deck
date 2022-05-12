@@ -9,7 +9,7 @@ import math
 from app.users.utils import save_picture
 
 from app.models import User, Otp
-db.create_all()
+
 
 users= Blueprint('users',__name__)
 
